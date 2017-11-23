@@ -15,7 +15,7 @@ The implementation of `react-router-page-transition-v2` component is done in Typ
 Note! I'll probably add this to NPM repository later, after adding tests.
 
 ```
-npm install github:jussikinnula/react-router-page-transition-v2
+npm install react-router-page-transition-v2
 ```
 
 ## Usage

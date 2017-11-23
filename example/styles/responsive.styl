@@ -1,0 +1,19 @@
+mobile-max-width = unit(400, 'px')
+tablet-min-width = unit(mobile-max-width + 1, 'px')
+tablet-max-width = unit(800, 'px')
+desktop-min-width = unit(tablet-max-width + 1, 'px')
+desktop-max-width = unit(1024, 'px')
+
+media_queries = {
+  mobile: "only screen and (min-width: %s) and (max-width: %s)" % (mobile-min-width mobile-max-width),
+  tablet: "only screen and (min-width: %s) and (max-width: %s)" % (tablet-min-width tablet-max-width),
+  desktop: "only screen and (min-width: %s)" % (desktop-min-width),
+}
+
+for_breakpoint(breakpoints)
+  conditions = ()
+  for breakpoint in breakpoints
+    push(conditions, media_queries[breakpoint])
+  conditions = join(", ", conditions)
+  @media conditions
+    {block}

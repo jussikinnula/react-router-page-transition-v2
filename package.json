@@ -1,0 +1,59 @@
+{
+  "name": "react-router-page-transition-v2",
+  "version": "0.0.1",
+  "description": "React Router Page Transitions",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jussikinnula/react-router-page-transition-v2"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Jussi Kinnula <jussi.kinnula@gmail.com>"
+  ],
+  "engines": {
+    "node": "^8.0.0",
+    "npm": "^5.0.0"
+  },
+  "scripts": {
+    "build": "npm run build:lib",
+    "prebuild:lib": "npm run clean && npm run lint",
+    "build:lib": "tsc --project ./tsconfig.lib.json --outDir ./lib --declaration",
+    "clean": "rimraf ./lib",
+    "start": "webpack-dev-server",
+    "lint": "tslint --project ./tsconfig.lib.json"
+  },
+  "dependencies": {
+    "p-queue": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.3",
+    "@types/node": "^8.0.53",
+    "@types/p-queue": "^1.1.0",
+    "@types/react": "^16.0.25",
+    "@types/react-dom": "^16.0.3",
+    "@types/react-router-dom": "^4.2.2",
+    "@types/webpack": "^3.8.1",
+    "@types/webpack-env": "^1.13.2",
+    "@types/webpack-merge": "4.1.1",
+    "classnames": "^2.2.5",
+    "css-loader": "^0.28.7",
+    "html-loader": "^0.5.1",
+    "html-webpack-plugin": "^2.30.1",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-router-dom": "^4.2.2",
+    "rimraf": "^2.6.2",
+    "style-loader": "^0.19.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "ts-loader": "^3.1.1",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.8.0",
+    "tslint-config-airbnb": "^5.4.2",
+    "typescript": "^2.6.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  }
+}

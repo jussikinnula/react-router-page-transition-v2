@@ -1,6 +1,6 @@
 {
   "name": "react-router-page-transition-v2",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "React Router Page Transitions",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -24,13 +24,10 @@
     "start": "webpack-dev-server",
     "lint": "tslint --project ./tsconfig.lib.json"
   },
-  "dependencies": {
-    "p-queue": "^2.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/classnames": "^2.2.3",
     "@types/node": "^8.0.53",
-    "@types/p-queue": "^1.1.0",
     "@types/react": "^16.0.25",
     "@types/react-dom": "^16.0.3",
     "@types/react-router-dom": "^4.2.2",

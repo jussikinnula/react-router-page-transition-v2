@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as PQueue from 'p-queue';
+//import * as PQueue from 'p-queue';
+import { PromiseQueue } from './PromiseQueue';
 
 export interface IPageTransitionProps {
   data?: any;
@@ -21,7 +22,8 @@ export interface IPageTransitionState {
 }
 
 export class PageTransition extends React.Component<IPageTransitionProps, IPageTransitionState> {
-  queue = new PQueue({ concurrency: 1 });
+  //queue = new PQueue({ concurrency: 1 });
+  queue = new PromiseQueue();
 
   static defaultProps: Partial<IPageTransitionProps> = {
     animateOnInit: false,

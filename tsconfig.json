@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es2015",
+    "module": "umd",
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "removeComments": true,
     "declaration": false,
     "sourceMap": true,
+    "strict": true,
     "jsx": "react",
     "typeRoots": [
       "./node_modules/@types"

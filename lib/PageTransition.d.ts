@@ -1,7 +1,6 @@
 /// <reference types="react" />
-/// <reference types="p-queue" />
 import * as React from 'react';
-import * as PQueue from 'p-queue';
+import { PromiseQueue } from './PromiseQueue';
 export interface IPageTransitionProps {
     data?: any;
     animateOnInit?: boolean;
@@ -19,7 +18,7 @@ export interface IPageTransitionState {
     nextChild: number;
 }
 export declare class PageTransition extends React.Component<IPageTransitionProps, IPageTransitionState> {
-    queue: PQueue<PQueue.DefaultAddOptions>;
+    queue: PromiseQueue;
     static defaultProps: Partial<IPageTransitionProps>;
     static compareChildren(prevChild: any, nextChild: any): boolean;
     componentWillMount(): void;

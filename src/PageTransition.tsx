@@ -63,7 +63,7 @@ export class PageTransition extends React.Component<IPageTransitionProps, IPageT
       const child = this.getRef('child1') as React.ReactInstance;
       if (child !== undefined) {
         const dom = ReactDOM.findDOMNode(child);
-        if (dom !== undefined && 'classList' in dom) dom.classList.remove('transition-item');
+        if (dom !== undefined && dom !== null) dom.classList.remove('transition-item');
       }
     } else {
       this.transite(this.props.children);

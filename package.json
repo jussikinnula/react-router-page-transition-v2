@@ -1,6 +1,6 @@
 {
   "name": "react-router-page-transition-v2",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React Router Page Transitions",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

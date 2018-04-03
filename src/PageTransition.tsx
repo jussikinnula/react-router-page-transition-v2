@@ -13,74 +13,84 @@ export interface IPageTransitionProps {
   onTransitionStart?: Function;
   onTransitionEnd?: Function;
   children?: any;
+  location: {
+    pathname: string;
+  };
 }
 
 export interface IPageTransitionState {
   child1: React.ReactNode;
   child2: React.ReactNode;
   nextChild: number;
+  pathname: string;
+  animationStart: boolean;
 }
 
 export class PageTransition extends React.Component<IPageTransitionProps, IPageTransitionState> {
-  //queue = new PQueue({ concurrency: 1 });
   queue = new PromiseQueue();
 
   static defaultProps: Partial<IPageTransitionProps> = {
     animateOnInit: false,
-    timeout: 500,
+    timeout: 500
   };
 
-  static compareChildren(prevChild: any, nextChild: any) {
-    if (
-      prevChild !== undefined
-      && prevChild !== null
-      && nextChild !== undefined
-      && nextChild !== null
-    ) {
-      return prevChild.props.location.pathname === nextChild.props.location.pathname;
-    }
-    return false;
-  }
-
-  componentWillMount() {
-    if (this.props.animateOnInit) {
-      this.setState({
+  constructor(props: IPageTransitionProps) {
+    super(props);
+    const { animateOnInit, children, location } = props;
+    const pathname = location && location.pathname || '';
+    const animationStart = false;
+    if (animateOnInit) {
+      this.state = {
+        pathname,
+        animationStart,
         child1: null,
         child2: null,
-        nextChild: 1
-      });
-    } else  {
-      this.setState({
-        child1: this.props.children,
+        nextChild: 1,
+      };
+    } else {
+      this.state = {
+        pathname,
+        animationStart,
+        child1: children,
         child2: null,
-        nextChild: 2
-      });
+        nextChild: 2,
+      };
     }
   }
 
   componentDidMount() {
-    if (!this.props.animateOnInit) {
-      const child = this.getRef('child1') as React.ReactInstance;
-      if (child !== undefined) {
-        const dom = ReactDOM.findDOMNode(child);
-        if (dom !== undefined && dom !== null) dom.classList.remove('transition-item');
-      }
+    const { animateOnInit, children } = this.props;
+    const { nextChild } = this.state;
+    if (animateOnInit) {
+      if (nextChild === 1) this.setState({ child1: children });
+      else this.setState({ child2: children });
+      this.transite();
     } else {
-      this.transite(this.props.children);
+      const child = this.getRef('child1') as React.ReactInstance;
+      if (child) {
+        const dom = ReactDOM.findDOMNode(child);
+        if (dom) dom.classList.remove('transition-item');
+      }
     }
   }
 
-  componentWillReceiveProps(nextProps: IPageTransitionProps) {
-    let isChildrenEqual;
-    if (this.props.compareChildren !== undefined) {
-      isChildrenEqual = this.props.compareChildren(this.props.children, nextProps.children);
-    } else {
-      isChildrenEqual = PageTransition.compareChildren(this.props.children, nextProps.children);
+  componentDidUpdate() {
+    if (this.state.animationStart) {
+      this.setState({ animationStart: false })
+      this.queue.add(() => this.transite());
     }
+  }
 
-    if (!isChildrenEqual) {
-      this.queue.add(() => this.transite(nextProps.children));
-    }
+  static getDerivedStateFromProps(
+    nextProps: IPageTransitionProps,
+    prevState: IPageTransitionState
+  ): Partial<IPageTransitionState> {
+    if (nextProps.location.pathname === prevState.pathname) return null;
+    return {
+      pathname: nextProps.location.pathname,
+      animationStart: true,
+      [`child${prevState.nextChild}`]: nextProps.children
+    };
   }
 
   getRef(ref: string) {
@@ -95,15 +105,8 @@ export class PageTransition extends React.Component<IPageTransitionProps, IPageT
     return child as React.ReactInstance;
   }
 
-  transite(nextChild: React.ReactNode) {
+  transite() {
     return new Promise(async (transiteDone, transiteFailed) => {
-      // Render the new children
-      if (this.state.nextChild === 1) {
-        this.setState({ child1: nextChild });
-      } else {
-        this.setState({ child2: nextChild });
-      }
-
       // Force update helper
       const forceUpdate = () => this.forceUpdate(() => Promise.resolve());
 
@@ -115,7 +118,7 @@ export class PageTransition extends React.Component<IPageTransitionProps, IPageT
       const newChildDom = ReactDOM.findDOMNode(newChild)as HTMLElement;
 
       const willStart = async () => {
-        if (this.props.onTransitionStart !== undefined) {
+        if (this.props.onTransitionStart) {
           await this.props.onTransitionStart();
         }
         return Promise.resolve();
@@ -162,7 +165,7 @@ export class PageTransition extends React.Component<IPageTransitionProps, IPageT
           newChildDom.classList.remove('transition-item');
           newChildDom.classList.remove('transition-appear-active');
         }
-        if (prevChildDom !== undefined && prevChildDom.classList.contains('transition-item')) {
+        if (prevChildDom && prevChildDom.classList.contains('transition-item')) {
           prevChildDom.classList.remove('transition-leave');
           prevChildDom.classList.remove('transition-item');
           prevChildDom.classList.remove('transition-leave-active');
@@ -171,7 +174,7 @@ export class PageTransition extends React.Component<IPageTransitionProps, IPageT
       };
 
       const didEnd = async () => {
-        if (this.props.onTransitionEnd !== undefined) {
+        if (this.props.onTransitionEnd) {
           await this.props.onTransitionEnd();
         }
         return Promise.resolve();
@@ -193,7 +196,7 @@ export class PageTransition extends React.Component<IPageTransitionProps, IPageT
 
   render() {
     let classNames = 'transition-wrapper';
-    if (this.props.className !== undefined) {
+    if (this.props.className) {
       classNames += ` ${this.props.className}`;
     }
     return (

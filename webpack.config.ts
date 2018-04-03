@@ -9,6 +9,8 @@ const OccurrenceOrderPlugin = webpack.optimize.OccurrenceOrderPlugin;
 const HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin;
 
 const config = {
+  mode: 'development',
+
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     modules: ['node_modules']
@@ -62,6 +64,24 @@ const config = {
     ]
   },
 
+  optimization: {
+    minimize: false,
+    runtimeChunk: {
+      name: 'runtime'
+    },
+    splitChunks: {
+      cacheGroups: {
+        default: false,
+        commons: {
+          test: /node_modules/,
+          name: 'vendor',
+          chunks: 'initial',
+          minSize: 1
+        }
+      }
+    }
+  },
+
   devServer: {
     host: 'localhost',
     contentBase: './src',
@@ -79,7 +99,6 @@ const config = {
       version: false
     }
   }
-
 };
 
 export default config;

@@ -71,6 +71,7 @@ export class App extends React.Component<Props, State> {
         <div className="App">
           <PageTransition
             timeout={500}
+            location={location}
             onTransitionStart={this.onTransitionStart}
             onTransitionEnd={this.onTransitionEnd}
             className={transitionClassNames.join(' ')}

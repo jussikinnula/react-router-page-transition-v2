@@ -94,14 +94,16 @@ class App extends React.Component<Props, State> {
 
     return (
       <PageTransition
-      timeout={500}
-      onTransitionStart={this.onTransitionStart}
-      onTransitionEnd={this.onTransitionEnd}
-      className={className}
-    >
-      ...
-    </PageTransition>
-  );
+        timeout={500}
+        location={this.props.location}
+        onTransitionStart={this.onTransitionStart}
+        onTransitionEnd={this.onTransitionEnd}
+        className={className}
+      >
+        ...
+      </PageTransition>
+    );
+  }
 }
 ```
 

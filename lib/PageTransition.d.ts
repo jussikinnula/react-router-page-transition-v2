@@ -11,20 +11,25 @@ export interface IPageTransitionProps {
     onTransitionStart?: Function;
     onTransitionEnd?: Function;
     children?: any;
+    location: {
+        pathname: string;
+    };
 }
 export interface IPageTransitionState {
     child1: React.ReactNode;
     child2: React.ReactNode;
     nextChild: number;
+    pathname: string;
+    animationStart: boolean;
 }
 export declare class PageTransition extends React.Component<IPageTransitionProps, IPageTransitionState> {
     queue: PromiseQueue;
     static defaultProps: Partial<IPageTransitionProps>;
-    static compareChildren(prevChild: any, nextChild: any): boolean;
-    componentWillMount(): void;
+    constructor(props: IPageTransitionProps);
     componentDidMount(): void;
-    componentWillReceiveProps(nextProps: IPageTransitionProps): void;
+    componentDidUpdate(): void;
+    static getDerivedStateFromProps(nextProps: IPageTransitionProps, prevState: IPageTransitionState): Partial<IPageTransitionState>;
     getRef(ref: string): React.ReactInstance;
-    transite(nextChild: React.ReactNode): Promise<{}>;
+    transite(): Promise<{}>;
     render(): JSX.Element;
 }

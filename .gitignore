@@ -6,4 +6,3 @@ __MACOSX/
 Thumbs.db
 .env
 npm-debug.log
-tsconfig.sublime.json

@@ -1,10 +1,10 @@
-module.exports = {
-  defaultSeverity: "error",
-  extends: [
+{
+  "defaultSeverity": "error",
+  "extends": [
     "tslint-config-airbnb"
   ],
-  jsRules: {},
-  rules: {
+  "jsRules": {},
+  "rules": {
     "no-console": {
       "options": [
         "debug",
@@ -23,5 +23,6 @@ module.exports = {
     ],
     "import-name": [false]
   },
-  rulesDirectory: []
-};
+  "rulesDirectory": []
+}
+

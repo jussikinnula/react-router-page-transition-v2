@@ -5,14 +5,14 @@ import List from '../List';
 import Item, { IItem } from '../Item';
 import './index.styl';
 
+const TRANSITION_SLIDE_LEFT = 'transition-slide-left';
+const TRANSITION_SLIDE_RIGHT = 'transition-slide-right';
+const TRANSITION_ACTIVE = 'transition-active';
+
 interface Props {
   location: any;
   history: any;
 }
-
-const TRANSITION_SLIDE_LEFT = 'transition-slide-left';
-const TRANSITION_SLIDE_RIGHT = 'transition-slide-right';
-const TRANSITION_ACTIVE = 'transition-active';
 
 interface State {
   items: IItem[];

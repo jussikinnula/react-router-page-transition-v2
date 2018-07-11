@@ -1,6 +1,6 @@
 # react-router-page-transition-v2
 
-Customizable page transitions, which work with *React 16.x* and with *React Router 4*.
+Customizable page transitions, which works with *React 16.x*, *React Router 4/5*, *Redux 4* and *Redux First Router*.
 
 I'll give most of the credit to @trungdq88 who implemented https://github.com/trungdq88/react-router-page-transition component, which unfortunately isn't yet functional with later React & React Router versions. This project is simplified from the original, so it's not exactly a replacement.
 

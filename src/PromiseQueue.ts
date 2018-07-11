@@ -1,4 +1,4 @@
-export class PromiseQueue {
+export default class PromiseQueue {
   private promises: Function[] = [];
   private idle: boolean = true;
 

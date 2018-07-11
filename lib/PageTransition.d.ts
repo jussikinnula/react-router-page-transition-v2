@@ -1,6 +1,5 @@
-/// <reference types="react" />
 import * as React from 'react';
-import { PromiseQueue } from './PromiseQueue';
+import PromiseQueue from './PromiseQueue';
 export interface IPageTransitionProps {
     data?: any;
     animateOnInit?: boolean;
@@ -29,7 +28,7 @@ export declare class PageTransition extends React.Component<IPageTransitionProps
     componentDidMount(): void;
     componentDidUpdate(): void;
     static getDerivedStateFromProps(nextProps: IPageTransitionProps, prevState: IPageTransitionState): Partial<IPageTransitionState>;
-    getRef(ref: string): React.ReactInstance;
-    transite(): Promise<{}>;
+    getRef(ref: string): any;
+    transite(): Promise<void>;
     render(): JSX.Element;
 }

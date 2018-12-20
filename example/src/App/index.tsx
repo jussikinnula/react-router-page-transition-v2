@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Switch, Route, withRouter } from 'react-router';
-import { PageTransition } from '../../src';
+import { PageTransition } from '../../../src';
 import List from '../List';
 import Item, { IItem } from '../Item';
 import './index.styl';

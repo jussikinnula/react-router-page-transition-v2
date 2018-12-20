@@ -19,12 +19,12 @@ const config = {
   // context: path.resolve(__dirname, '../'),
 
   entry: {
-    app: './example/index'
+    app: './example/src/index'
   },
 
   output: {
     filename: 'app.js',
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../example'),
     publicPath: '/'
   },
 

@@ -8,24 +8,23 @@ const NoEmitOnErrorsPlugin = webpack.NoEmitOnErrorsPlugin;
 const OccurrenceOrderPlugin = webpack.optimize.OccurrenceOrderPlugin;
 const HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin;
 
+const mode = process.env.NODE_ENV || 'development';
+
 const config = {
-  mode: 'development',
+  mode,
 
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     modules: ['node_modules']
   },
 
-  // context: path.resolve(__dirname, '../'),
-
   entry: {
     app: './example/src/index'
   },
 
   output: {
-    filename: 'app.js',
-    path: path.resolve(__dirname, '../example'),
-    publicPath: '/'
+    filename: '[name].js',
+    path: path.resolve(__dirname, './example')
   },
 
   plugins: [
@@ -37,7 +36,14 @@ const config = {
       debug: true
     }),
 
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      chunksSortMode: 'dependency',
+      filename: 'index.html',
+      hash: true,
+      inject: 'body',
+      title: 'react-router-page-transition-v2',
+      template: './example/src/index.html'
+    }),
 
     new OccurrenceOrderPlugin(true),
 
@@ -79,24 +85,6 @@ const config = {
           minSize: 1
         }
       }
-    }
-  },
-
-  devServer: {
-    host: 'localhost',
-    contentBase: './src',
-    hot: true,
-    port: 5000,
-    stats: {
-      cached: true,
-      cachedAssets: true,
-      chunks: true,
-      chunkModules: false,
-      colors: true,
-      hash: false,
-      reasons: true,
-      timings: true,
-      version: false
     }
   }
 };

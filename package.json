@@ -1,6 +1,6 @@
 {
   "name": "react-router-page-transition-v2",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "description": "React Router Page Transitions",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -17,11 +17,12 @@
     "npm": "^5.6.0"
   },
   "scripts": {
-    "build": "npm run build:lib",
+    "build": "npm-run-all --serial build:lib build:example",
     "prebuild:lib": "npm run clean && npm run lint",
     "build:lib": "tsc --project ./tsconfig.lib.json --outDir ./lib --declaration",
-    "clean": "rimraf ./lib",
-    "start": "webpack-dev-server",
+    "build:example": "webpack",
+    "clean": "rimraf ./lib ./example/*.js ./example/index.html",
+    "start": "webpack-dev-server --port 5000",
     "lint": "tslint --project ./tsconfig.lib.json"
   },
   "dependencies": {},
@@ -42,6 +43,7 @@
     "css-loader": "^2.0.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "npm-run-all": "^4.1.5",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
